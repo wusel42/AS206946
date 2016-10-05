@@ -21,19 +21,22 @@ do
   LHTMPNAME="`echo $i | sed -f ./as206946-tunnel-mapping.sed | cut -d - -f 1`"
   RHTMPNAME="`echo $i | sed -f ./as206946-tunnel-mapping.sed | cut -d - -f 2`"
   domain="dn42.uu.org"
+  tunprefix="uu"
   echo "$LHS" | grep bgp 2>&1 >/dev/null && domain="4830.org"
+  if [ "$domain" == "4830.org" ]; then tunprefix="ffgt"; fi
   LHSIP="`host ${LHS}.${domain} | awk '/has address/ {print $NF;}'`"
   domain="dn42.uu.org"
   echo "$RHS" | grep bgp 2>&1 >/dev/null && domain="4830.org"
-  RHSIP="`host ${RHS}.${domain} | awk '/has address/ {print $NF;}'`"
+  if [ "$domain" == "4830.org" ]; then tunprefix="ffgt"; fi
+ RHSIP="`host ${RHS}.${domain} | awk '/has address/ {print $NF;}'`"
   if [ "$LHS" = "$uname" ]; then
-    echo "uu-$RHS:"
+    echo "${tunprefix}-${RHS}:"
     echo "  pub4src: \"$LHSIP\""
     echo "  pub4dst: \"$RHSIP\""
     ./tun-ip.sh $LHTMPNAME-$RHTMPNAME | awk '{gsub("IP", "ip", $1); gsub(":", "src:", $1); printf("  %s \"%s\"\n", $1, $2);}'
     ./tun-ip.sh $RHTMPNAME-$LHTMPNAME | awk '{gsub("IP", "ip", $1); gsub(":", "dst:", $1); printf("  %s \"%s\"\n", $1, $2);}'
   else
-    echo "uu-$LHS:"
+    echo "${tunprefix}-${LHS}:"
     echo "  pub4src: \"$RHSIP\""
     echo "  pub4dst: \"$LHSIP\""
     ./tun-ip.sh $LHTMPNAME-$RHTMPNAME | awk '{gsub("IP", "ip", $1); gsub(":", "dst:", $1); printf("  %s \"%s\"\n", $1, $2);}'
