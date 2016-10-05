@@ -40,4 +40,4 @@ do
     ./tun-ip.sh $RHTMPNAME-$LHTMPNAME | awk '{gsub("IP", "ip", $1); gsub(":", "src:", $1); printf("  %s \"%s\"\n", $1, $2);}'
   fi
   echo
-done > dn42-tunnel.yaml
+done | sed -e 's%/64%%g'> dn42-tunnel.yaml
