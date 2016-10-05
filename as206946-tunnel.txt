@@ -1,0 +1,12 @@
+de3-uk2
+de3-us1
+de3-fr1
+de3-lt1
+uk2-us1
+uk2-fr1
+uk2-lt1
+us1-fr1
+us1-lt1
+fr1-lt1
+de3-bgp3
+de3-bgp2
