@@ -14,7 +14,7 @@ export LANG
 # originates from). Thus, if name is ^bgp, we must lookup $name.4830.org
 # to find the ipv4 tunnelendpoint, but we must use the mapped name for
 # the invocation of tun-ip.sh ...
-for i in `cat /tmp/tunnel.txt | grep ${uname}`
+for i in `cat as206946-tunnel.txt | grep ${uname}`
 do
   LHS="`echo $i | cut -d - -f 1`"
   RHS="`echo $i | cut -d - -f 2`"
