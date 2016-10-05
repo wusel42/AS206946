@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Interactive use, i. e. set PATH accordingly if run via cron
+# Build for interactive use, i. e. set PATH accordingly if run via cron
 
 uname="`uname -n`"
 
