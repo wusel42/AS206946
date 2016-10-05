@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 #
 # Build for interactive use, i. e. set PATH accordingly if run via cron
+#
+# To facilitate "virtual remote execution" ;), enter target hostname as $1
 
 uname="`uname -n`"
+if [ $# -eq 1 ]; then
+  uname="$1"
+  (>&2 echo "Using $1 as local hostname")
+fi
 
 # Make sure we don't get surprised by I8N ;-)
 LANG=C
