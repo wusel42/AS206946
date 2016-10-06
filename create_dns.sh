@@ -21,7 +21,7 @@ fi
 LANG=C
 export LANG
 
-rev6domain="`sipcalc -r ${ipv6base}:: | grep ^0 | awk '{gsub("arpa.", "arpa"); print $0;}'`"
+rev6domain="`sipcalc -r ${ipv6base}000:: | grep ^0 | awk '{f=split($1, addr, "."); for(i=20; i<f; i++) printf("%s.", addr[i]); printf("\n");}' | awk '{gsub("arpa.", "arpa"); print $0;}'`"
 rev4domain="`echo \"${ipv4base}\" | awk 'BEGIN{FS=".";} {printf("%s.%s.in-addr.arpa\n", $2, $1);}'`"
 
 cat /dev/null >${domain}.inc
@@ -40,7 +40,7 @@ do
   echo "${LHS}-${RHS} IN A ${IP4}" >> ${domain}.inc
   echo "${LHS}-${RHS} IN AAAA ${IP6}" >> ${domain}.inc
   echo "${IP4}" | awk -v tunnel="${LHS}-${RHS}.${domain}" '{split($1, addr, "."); printf("%s.%s.%s.%s.in-addr.arpa. IN PTR %s.\n", addr[4], addr[3], addr[2], addr[1], tunnel);}' >> ${rev4domain}.inc
-  sipcalc -r "${IP6}" | grep ip6.arpa | tail -1 | awk -v tunnel="${LHS}-${RHS}.${domain}" '{printf("%s IN PTR %s.\n", $1, tunnel);}' >> ${rev6domain}.inc
+  sipcalc -r "${IP6}" | grep ip6.arpa | tail -1 | awk '{f=split($1, addr, "."); for(i=1; i<19; i++) printf("%s.", addr[i]); printf("%s\n", addr[i]);}' | awk -v tunnel="${LHS}-${RHS}.${domain}" '{printf("%s IN PTR %s.\n", $1, tunnel);}' >> ${rev6domain}.inc
 
   ./tun-ip.sh $RHTMPNAME-$LHTMPNAME > /tmp/$$.tmp
   IP4="`grep </tmp/$$.tmp IPv4: | cut -d ' ' -f 2`"
@@ -48,6 +48,6 @@ do
   echo "${RHS}-${LHS} IN A ${IP4}" >> ${domain}.inc
   echo "${RHS}-${LHS} IN AAAA ${IP6}" >> ${domain}.inc
   echo "${IP4}" | awk -v tunnel="${RHS}-${LHS}.${domain}" '{split($1, addr, "."); printf("%s.%s.%s.%s.in-addr.arpa. IN PTR %s.\n", addr[4], addr[3], addr[2], addr[1], tunnel);}' >> ${rev4domain}.inc
-  sipcalc -r "${IP6}" | grep ip6.arpa | tail -1 | awk -v tunnel="${RHS}-${LHS}.${domain}" '{printf("%s IN PTR %s.\n", $1, tunnel);}' >> ${rev6domain}.inc
+  sipcalc -r "${IP6}" | grep ip6.arpa | tail -1 | awk '{f=split($1, addr, "."); for(i=1; i<19; i++) printf("%s.", addr[i]); printf("%s\n", addr[i]);}' | awk -v tunnel="${RHS}-${LHS}.${domain}" '{printf("%s IN PTR %s.\n", $1, tunnel);}' >> ${rev6domain}.inc
 done
 rm /tmp/$$.tmp
