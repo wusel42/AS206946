@@ -10,3 +10,5 @@ us1-lt1
 fr1-lt1
 de3-bgp3
 de3-bgp2
+de3-gt1
+uk2-gt1
