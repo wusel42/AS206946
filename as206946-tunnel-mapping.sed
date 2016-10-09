@@ -3,4 +3,4 @@ s/uk2/xx01/g
 s/us1/xx02/g
 s/fr1/xx03/g
 s/lt1/xx04/g
-s/gt1/gw00/g
+s/gut1/gw00/g
