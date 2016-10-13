@@ -16,16 +16,24 @@ export LANG
 
 # This is a bit messy. AS206946 bgp host are named CCTDL#.dn42.uu.org
 # they get mapped to xx##-names for the tun-ip.sh-script, as we want
-# to peer with our Freifunk BGP hosts as well (which is where the script
+# to peer with our Freifunk BGP hosts as well (which is where tun-ip-sh
 # originates from). Thus, if name is ^bgp, we must lookup $name.4830.org
 # to find the ipv4 tunnelendpoint, but we must use the mapped name for
 # the invocation of tun-ip.sh ...
+#
+# Format of as206946-tunnel.txt is link-spec <space> tunnel-type, e. g.
+#
+# de3-uk2 gre
+# de3-us1 l2tp
+# de3-gut1 ovpn
+
 for i in `cat as206946-tunnel.txt | grep ${uname}`
 do
-  LHS="`echo $i | cut -d - -f 1`"
-  RHS="`echo $i | cut -d - -f 2`"
-  LHTMPNAME="`echo $i | sed -f ./as206946-tunnel-mapping.sed | cut -d - -f 1`"
-  RHTMPNAME="`echo $i | sed -f ./as206946-tunnel-mapping.sed | cut -d - -f 2`"
+  LHS="`echo $i | awk '{split($1, lp, "-"); print lp[1];}'`"
+  RHS="`echo $i | awk '{split($1, lp, "-"); print lp[2];}'`"
+  TYPE="`echo $i | cut -d " " -f 2`"
+  LHTMPNAME="`echo $i | sed -f ./as206946-tunnel-mapping.sed | awk '{split($1, lp, "-"); print lp[1];}'`"
+  RHTMPNAME="`echo $i | sed -f ./as206946-tunnel-mapping.sed | awk '{split($1, lp, "-"); print lp[2];}'`"
   domain="dn42.uu.org"
   tunprefix="uu"
   echo "$LHS" | grep bgp 2>&1 >/dev/null && domain="4830.org"
@@ -41,12 +49,14 @@ do
     echo "  pub4dst: \"$RHSIP\""
     ./tun-ip.sh $LHTMPNAME-$RHTMPNAME | awk '{gsub("IP", "ip", $1); gsub(":", "src:", $1); printf("  %s \"%s\"\n", $1, $2);}'
     ./tun-ip.sh $RHTMPNAME-$LHTMPNAME | awk '{gsub("IP", "ip", $1); gsub(":", "dst:", $1); printf("  %s \"%s\"\n", $1, $2);}'
+    echo "  mode: \"${TYPE}\""
   else
     echo "${tunprefix}-${LHS}:"
     echo "  pub4src: \"$RHSIP\""
     echo "  pub4dst: \"$LHSIP\""
     ./tun-ip.sh $LHTMPNAME-$RHTMPNAME | awk '{gsub("IP", "ip", $1); gsub(":", "dst:", $1); printf("  %s \"%s\"\n", $1, $2);}'
     ./tun-ip.sh $RHTMPNAME-$LHTMPNAME | awk '{gsub("IP", "ip", $1); gsub(":", "src:", $1); printf("  %s \"%s\"\n", $1, $2);}'
+    echo "  mode: \"${TYPE}\""
   fi
   echo
 done | sed -e 's%/64%%g'> dn42-tunnel.yaml

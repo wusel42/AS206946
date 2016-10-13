@@ -30,10 +30,10 @@ cat /dev/null >${rev6domain}.inc
 
 for i in `cat as206946-tunnel.txt`
 do
-  LHS="`echo $i | cut -d - -f 1`"
-  RHS="`echo $i | cut -d - -f 2`"
-  LHTMPNAME="`echo $i | sed -f ./as206946-tunnel-mapping.sed | cut -d - -f 1`"
-  RHTMPNAME="`echo $i | sed -f ./as206946-tunnel-mapping.sed | cut -d - -f 2`"
+  LHS="`echo $i | awk '{split($1, lp, "-"); print lp[1];}'`"
+  RHS="`echo $i | awk '{split($1, lp, "-"); print lp[2];}'`"
+  LHTMPNAME="`echo $i | sed -f ./as206946-tunnel-mapping.sed | awk '{split($1, lp, "-"); print lp[1];}'`"
+  RHTMPNAME="`echo $i | sed -f ./as206946-tunnel-mapping.sed | awk '{split($1, lp, "-"); print lp[2];}'`"
   ./tun-ip.sh $LHTMPNAME-$RHTMPNAME > /tmp/$$.tmp
   IP4="`grep </tmp/$$.tmp IPv4: | cut -d ' ' -f 2`"
   IP6="`grep </tmp/$$.tmp IPv6: | cut -d ' ' -f 2 | sed -e 's%/64%%g'`"
