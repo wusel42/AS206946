@@ -27,7 +27,7 @@ export LANG
 # de3-us1 l2tp
 # de3-gut1 ovpn
 
-for i in `cat as206946-tunnel.txt | grep ${uname}`
+for i in "`cat as206946-tunnel.txt | grep ${uname}`"
 do
   LHS="`echo $i | awk '{split($1, lp, "-"); print lp[1];}'`"
   RHS="`echo $i | awk '{split($1, lp, "-"); print lp[2];}'`"
