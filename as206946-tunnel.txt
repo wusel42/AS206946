@@ -11,6 +11,6 @@ fr1-lt1 l2tp
 de3-de4 l2tp
 de3-bgp3 l2tp
 de3-bgp2 l2tp
-de3-gut1 gre
-uk2-gut1 gre
+de3-gut1 l2tp
+uk2-gut1 l2tp
 de3-gut1 ovpn
