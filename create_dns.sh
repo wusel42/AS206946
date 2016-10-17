@@ -28,7 +28,7 @@ cat /dev/null >${domain}.inc
 cat /dev/null >${rev4domain}.inc
 cat /dev/null >${rev6domain}.inc
 
-for i in `cat as206946-tunnel.txt`
+for i in `cat as206946-tunnel.txt|cut -d ' ' -f 1`
 do
   LHS="`echo $i | awk '{split($1, lp, "-"); print lp[1];}'`"
   RHS="`echo $i | awk '{split($1, lp, "-"); print lp[2];}'`"
