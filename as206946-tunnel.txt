@@ -14,3 +14,4 @@ de3-bgp2 l2tp
 de3-gut1 l2tp
 uk2-gut1 l2tp
 de3-mob1 l2tp
+gut1-tst1 gre
