@@ -1,0 +1,6 @@
+de3-bgp1 l2tp
+de3-bgp3 l2tp
+de4-bgp2 l2tp
+de4-bgp4 l2tp
+de3-gut1 gre
+gut1-mob1 gre
