@@ -26,3 +26,10 @@ sg1-uk2 lt2p
 sg1-us1 lt2p
 sg1-fr1 lt2p
 sg1-lt1 lt2p
+de4-de3 lt2p
+de4-uk2 lt2p
+de4-us1 lt2p
+de4-fr1 lt2p
+de4-lt1 lt2p
+de4-sg1 lt2p
+de4-hk1 lt2p
