@@ -15,3 +15,14 @@ de3-gut1 l2tp
 uk2-gut1 l2tp
 de3-mob1 l2tp
 gut1-tst1 gre
+hk1-de3 lt2p
+hk1-uk2 lt2p
+hk1-us1 lt2p
+hk1-fr1 lt2p
+hk1-lt1 lt2p
+hk1-sg1 lt2p
+sg1-de3 lt2p
+sg1-uk2 lt2p
+sg1-us1 lt2p
+sg1-fr1 lt2p
+sg1-lt1 lt2p
