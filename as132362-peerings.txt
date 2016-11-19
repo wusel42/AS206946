@@ -1,0 +1,3 @@
+# my-as peer-AS in out my-host tag
+132362 6939 ANY AS-wusel sg1 upstream
+132362 206946 ANY AS132362 de4 peering

@@ -1,0 +1,2 @@
+# my-as peer-AS in out my-host tag
+206740 206946 ANY AS207640 de3 upstream

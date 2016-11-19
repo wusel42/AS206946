@@ -4,5 +4,4 @@ uk2
 us1
 fr1
 lt1
-hk1
 sg1
