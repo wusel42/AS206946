@@ -1,7 +1,6 @@
 de3
 de4
+de5
 uk2
 us1
-fr1
-lt1
 sg1

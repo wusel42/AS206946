@@ -7,3 +7,4 @@
 206946 206813 AS-FFGT ANY de3 downstream
 206946 6939 ANY AS-wusel de3 upstream
 206946 47987 ANY AS206946 uk2 upstream
+206946 30823 ANY AS-wusel de5 upstream
