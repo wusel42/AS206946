@@ -6,7 +6,7 @@ Stuff for maintaining my AS
 Files as*-peerings.txt: these describe with which other ASNs an ASN will exchange which ASes/AS-Sets. Used for "./gen-irr-lines.sh".
 
 Example:
-
+```
 wusel@ysabell:/data/wusel/AS206946$ cat as206813-peerings.txt 
 # my-as peer-AS in out my-host tag
 206813 206946 ANY AS-FFGT de3 upstream
@@ -14,7 +14,7 @@ wusel@ysabell:/data/wusel/AS206946$ cat as206813-peerings.txt
 206813 201701 ANY AS-FFGT bgp2 upstream
 206813 44194 AS44194 AS-FFGT bgp2 peering
 206813 49009 AS49009 AS-FFGT bgp2 peering
-
+```
 ---------
 
 ./gen-irr-lines.sh ASN
@@ -22,6 +22,7 @@ wusel@ysabell:/data/wusel/AS206946$ cat as206813-peerings.txt
 Fetch AS info from (RIPE) whois DB, cut at "---..--- IRR data" and fill in current info based on "as$ASN-peerings.txt" file.
 
 Example:
+```
 wusel@ysabell:/data/wusel/AS206946$ ./gen-irr-lines.sh 206813
 aut-num:        AS206813
 as-name:        AS4830org
@@ -67,4 +68,4 @@ mnt-routes:     FROSTY-MNT
 created:        2016-11-01T13:15:31Z
 last-modified:  2016-11-15T23:25:31Z
 source:         RIPE
-
+```
