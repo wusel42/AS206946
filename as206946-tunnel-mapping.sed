@@ -2,8 +2,8 @@ s/de3/xx00/g
 s/uk2/xx01/g
 s/us1/xx02/g
 s/nl2/xx03/g
-s/de4/xx04/g
-s/de5/xx05/g
+s/de4/xx05/g
+s/de5/xx04/g
 s/de6/xx06/g
 s/sg1/xx07/g
 s/gut1/gw00/g
