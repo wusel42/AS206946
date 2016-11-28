@@ -69,3 +69,5 @@ created:        2016-11-01T13:15:31Z
 last-modified:  2016-11-15T23:25:31Z
 source:         RIPE
 ```
+
+This output can e. g. cut&pasted into the RIPE DB webinterface. (I'm no LIR, that's how I interact with RIPE and IRR data.)
