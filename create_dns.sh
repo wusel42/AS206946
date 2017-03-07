@@ -2,8 +2,6 @@
 #
 # Build for interactive use, i. e. set PATH accordingly if run via cron
 #
-# To facilitate "virtual remote execution" ;), enter target hostname as $1
-#
 # Usage: create_dns.sh as206946.net 198.19 2a07:a907:50c:f
 #
 # Requires: sipcalc
