@@ -3,16 +3,22 @@ de3-de5 l2tp
 de3-uk2 l2tp
 de3-us1 l2tp
 de3-sg1 l2tp
+de3-de0 l2tp
 de4-de5 l2tp
 de4-uk2 l2tp
 de4-us1 l2tp
 de4-sg1 l2tp
+de4-de0 l2tp
 de5-uk2 l2tp
 de5-us1 l2tp
 de5-sg1 l2tp
+de5-de0 l2tp
 uk2-us1 l2tp
 uk2-sg1 l2tp
+uk2-de0 l2tp
 us1-sg1 l2tp
+us1-de0 l2tp
+sg1-de0 l2tp
 de3-bgp2 l2tp
 de4-bgp2 l2tp
 de3-bgp4 l2tp
@@ -22,3 +28,4 @@ de5-gut1 gre
 uk2-gut1 gre
 gut1-mob1 gre
 de5-mob1 gre
+de0-bgp4 l2tp

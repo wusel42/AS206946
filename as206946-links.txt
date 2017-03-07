@@ -7,3 +7,4 @@ de5-gut1 gre
 uk2-gut1 gre
 gut1-mob1 gre
 de5-mob1 gre
+de0-bgp4 l2tp

@@ -1,5 +1,5 @@
 # AS206946
-Stuff for maintaining my AS
+Stuff for maintaining my and FFGT's Autonomous Systems
 
 ----------
 
@@ -71,3 +71,6 @@ source:         RIPE
 ```
 
 This output can e. g. cut&pasted into the RIPE DB webinterface. (I'm no LIR, that's how I interact with RIPE and IRR data.)
+
+----------
+
