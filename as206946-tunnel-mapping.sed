@@ -10,3 +10,7 @@ s/gut1/gw00/g
 s/mob1/gw10/g
 s/tst1/gw11/g
 s/de0/xx10/g
+s/bgp-gut01/bgp01/g
+s/bgp-gut02/bgp02/g
+s/bgp-fks01/bgp03/g
+s/bgp-fks02/bgp04/g

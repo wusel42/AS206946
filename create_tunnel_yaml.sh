@@ -14,12 +14,13 @@ fi
 LANG=C
 export LANG
 
-# This is a bit messy. AS206946 bgp host are named CCTDL#.dn42.uu.org
-# they get mapped to xx##-names for the tun-ip.sh-script, as we want
-# to peer with our Freifunk BGP hosts as well (which is where tun-ip-sh
-# originates from). Thus, if name is ^bgp, we must lookup $name.4830.org
-# to find the ipv4 tunnelendpoint, but we must use the mapped name for
-# the invocation of tun-ip.sh ...
+# This is a bit messy. AS206946 bgp host are named CCTLD#.dn42.uu.org
+# they get mapped to xx##-names (or, actually, anything except bgp##)
+# for the tun-ip.sh-script, as we want to peer with our Freifunk BGP
+# hosts as well (which is where tun-ip-sh originates from). Thus, if
+# name is ^bgp, we must lookup $name.4830.org to find the ipv4
+# tunnelendpoint, but we must use the mapped name for the invocation
+# of tun-ip.sh ...
 #
 # Format of as206946-tunnel.txt is link-spec <space> tunnel-type, e. g.
 #
