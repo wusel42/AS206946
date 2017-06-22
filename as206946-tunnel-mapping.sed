@@ -14,3 +14,5 @@ s/bgp-gut01/bgp01/g
 s/bgp-gut02/bgp02/g
 s/bgp-fks01/bgp03/g
 s/bgp-fks02/bgp04/g
+s/uk1/xx11/g
+s/nl3/xx12/g
