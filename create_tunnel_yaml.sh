@@ -57,6 +57,9 @@ do
       echo "  ipv6dst: \"${RHS6IP}\""
       echo "  ipv4src: \"${LHSIP}\""
       echo "  ipv4dst: \"${RHSIP}\""
+    elif [ "${TYPE}" == "l2tp-ll" ]; then
+      ./tun-ip.sh $LHTMPNAME:$RHTMPNAME --linklocal | awk '{gsub("IP", "ip", $1); gsub(":", "src:", $1); printf("  %s \"%s\"\n", $1, $2);}'
+      ./tun-ip.sh $RHTMPNAME:$LHTMPNAME --linklocal | awk '{gsub("IP", "ip", $1); gsub(":", "dst:", $1); printf("  %s \"%s\"\n", $1, $2);}'
     else
       ./tun-ip.sh $LHTMPNAME:$RHTMPNAME | awk '{gsub("IP", "ip", $1); gsub(":", "src:", $1); printf("  %s \"%s\"\n", $1, $2);}'
       ./tun-ip.sh $RHTMPNAME:$LHTMPNAME | awk '{gsub("IP", "ip", $1); gsub(":", "dst:", $1); printf("  %s \"%s\"\n", $1, $2);}'
