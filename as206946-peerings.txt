@@ -1,11 +1,11 @@
 # my-as peer-AS in out my-host tag
-206946 20473 ANY AS206946 us1 upstream
+206946 20473 ANY AS206946 us1,de4 upstream
 206946 132362 AS132362 AS-wusel sg1 peering
 132362 6939 ANY AS-wusel sg1 upstream
-206946 20473 ANY AS206946 de4 upstream
 206946 200753 ANY AS-wusel de4 upstream
 206946 206813 AS-FFGT ANY de3 downstream
 206946 6939 ANY AS-wusel de3 upstream
 206946 47987 ANY AS206946 uk2 upstream
 206946 30823 ANY AS-wusel de5 upstream
-206946 9178 ANY AS206946 nl3 upstream
+206946 9178 ANY AS-wusel nl3 upstream
+206946 206740 ANY AS-wusel de0,de3 downstream
