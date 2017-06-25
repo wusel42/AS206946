@@ -71,7 +71,7 @@ fi
 
 v6base=2a07:a907:50c:f
 
-if [ $# -eq 2 -a "$2" == "linklocal" ]; then
+if [ $# -eq 2 -a "$2" = "linklocal" ]; then
     v6base=fe80:deca:fbad:0
 fi
 
