@@ -52,14 +52,14 @@ do
     echo "${tunprefix}-${RHS}:"
     echo "  pub4src: \"$LHSIP\""
     echo "  pub4dst: \"$RHSIP\""
-    if [ "${TYPE}" == "lan" ]; then
+    if [ "${TYPE}" = "lan" ]; then
       echo "  ipv6src: \"${LHS6IP}\""
       echo "  ipv6dst: \"${RHS6IP}\""
       echo "  ipv4src: \"${LHSIP}\""
       echo "  ipv4dst: \"${RHSIP}\""
-    elif [ "${TYPE}" == "l2tp-ll" ]; then
-      ./tun-ip.sh $LHTMPNAME:$RHTMPNAME --linklocal | awk '{gsub("IP", "ip", $1); gsub(":", "src:", $1); printf("  %s \"%s\"\n", $1, $2);}'
-      ./tun-ip.sh $RHTMPNAME:$LHTMPNAME --linklocal | awk '{gsub("IP", "ip", $1); gsub(":", "dst:", $1); printf("  %s \"%s\"\n", $1, $2);}'
+    elif [ "${TYPE}" = "l2tp-ll" ]; then
+      ./tun-ip.sh $LHTMPNAME:$RHTMPNAME linklocal | awk '{gsub("IP", "ip", $1); gsub(":", "src:", $1); printf("  %s \"%s\"\n", $1, $2);}'
+      ./tun-ip.sh $RHTMPNAME:$LHTMPNAME linklocal | awk '{gsub("IP", "ip", $1); gsub(":", "dst:", $1); printf("  %s \"%s\"\n", $1, $2);}'
     else
       ./tun-ip.sh $LHTMPNAME:$RHTMPNAME | awk '{gsub("IP", "ip", $1); gsub(":", "src:", $1); printf("  %s \"%s\"\n", $1, $2);}'
       ./tun-ip.sh $RHTMPNAME:$LHTMPNAME | awk '{gsub("IP", "ip", $1); gsub(":", "dst:", $1); printf("  %s \"%s\"\n", $1, $2);}'
@@ -69,11 +69,14 @@ do
     echo "${tunprefix}-${LHS}:"
     echo "  pub4src: \"$RHSIP\""
     echo "  pub4dst: \"$LHSIP\""
-    if [ "${TYPE}" == "lan" ]; then
+    if [ "${TYPE}" = "lan" ]; then
       echo "  ipv6src: \"${RHS6IP}\""
       echo "  ipv6dst: \"${LHS6IP}\""
       echo "  ipv4src: \"${RHSIP}\""
       echo "  ipv4dst: \"${LHSIP}\""
+    elif [ "${TYPE}" = "l2tp-ll" ]; then
+      ./tun-ip.sh $LHTMPNAME:$RHTMPNAME linklocal | awk '{gsub("IP", "ip", $1); gsub(":", "dst:", $1); printf("  %s \"%s\"\n", $1, $2);}'
+      ./tun-ip.sh $RHTMPNAME:$LHTMPNAME linklocal | awk '{gsub("IP", "ip", $1); gsub(":", "src:", $1); printf("  %s \"%s\"\n", $1, $2);}'
     else
       ./tun-ip.sh $LHTMPNAME:$RHTMPNAME | awk '{gsub("IP", "ip", $1); gsub(":", "dst:", $1); printf("  %s \"%s\"\n", $1, $2);}'
       ./tun-ip.sh $RHTMPNAME:$LHTMPNAME | awk '{gsub("IP", "ip", $1); gsub(":", "src:", $1); printf("  %s \"%s\"\n", $1, $2);}'
