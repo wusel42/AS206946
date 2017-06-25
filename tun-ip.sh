@@ -65,13 +65,13 @@
 # Usage: $0 bgp1-gw04
 
 if [ $# -lt 1 -o $# -gt 2 ]; then
-    echo "Usage: $0 bgp1:gw04 [--linklocal]"
+    echo "Usage: $0 bgp1:gw04 [linklocal]"
     exit 1
 fi
 
 v6base=2a07:a907:50c:f
 
-if [ $# -eq 2 -a "$2" == "--linklocal" ]; then
+if [ $# -eq 2 -a "$2" == "linklocal" ]; then
     v6base=fe80:deca:fbad:0
 fi
 
