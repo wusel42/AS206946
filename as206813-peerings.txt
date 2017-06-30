@@ -1,6 +1,0 @@
-# my-as peer-AS in out my-host tag
-206813 206946 ANY AS-FFGT de3 upstream
-206813 206740 AS206740 AS-FFGT de3 peering
-206813 201701 ANY AS-FFGT bgp2 upstream
-206813 44194 AS44194 AS-FFGT bgp2 peering
-206813 49009 AS49009 AS-FFGT bgp2 peering
