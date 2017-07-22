@@ -60,20 +60,21 @@
 # create them automatically, locally, per host. The script can be used
 # to generate DNS entries as well, just add some more pipes ;)
 #
-# For FFGT as of this writing, ipv4base is 10.234., ipv6base is 2a03:2260:117:0.
+# For FFGT as of this writing, ipv4base is 10.234, ipv6base is 2a03:2260:117:0.
 #
-# Usage: $0 bgp1-gw04
+# Usage: $0 bgp1:gw04 [linklocal]
 
 if [ $# -lt 1 -o $# -gt 2 ]; then
     echo "Usage: $0 bgp1:gw04 [linklocal]"
     exit 1
 fi
 
+v4base=198.19
 v6base=2a07:a907:50c:f
 
 if [ $# -eq 2 -a "$2" = "linklocal" ]; then
     v6base=fe80:deca:fbad:0
 fi
 
-echo "$1" | gawk -v ipbase=198.19 '{n=split($1, nodes, ":"); if(n!=2) {printf("Error parsing %s\n", $1); exit;} xval[1]=0; xval[2]=0; for(i=1; i<3; i++) {switch(substr(nodes[i], 1, 1)) {case "b": xval[i]=1; break; case "g": xval[i]=2; break; case "s": xval[i]=3; break; case "x": xval[i]=4; break;}} x=sprintf("%1d%1d", xval[1], xval[2]); for(i=1; i<3; i++) {gsub("^bgp", "", nodes[i]); gsub("^gw", "", nodes[i]); gsub("^s", "", nodes[i]); gsub("^xx", "", nodes[i]);} y=nodes[1]*16+nodes[2]; printf("IPv4: %s.%d.%d\n", ipbase, x, y);}'
+echo "$1" | gawk -v ipbase=${v4base} '{n=split($1, nodes, ":"); if(n!=2) {printf("Error parsing %s\n", $1); exit;} xval[1]=0; xval[2]=0; for(i=1; i<3; i++) {switch(substr(nodes[i], 1, 1)) {case "b": xval[i]=1; break; case "g": xval[i]=2; break; case "s": xval[i]=3; break; case "x": xval[i]=4; break;}} x=sprintf("%1d%1d", xval[1], xval[2]); for(i=1; i<3; i++) {gsub("^bgp", "", nodes[i]); gsub("^gw", "", nodes[i]); gsub("^s", "", nodes[i]); gsub("^xx", "", nodes[i]);} y=nodes[1]*16+nodes[2]; printf("IPv4: %s.%d.%d\n", ipbase, x, y);}'
 echo "$1" | gawk -v ipbase=${v6base} '{n=split($1, nodes, ":"); if(n!=2) {printf("Error parsing %s\n", $1); exit;} xval[1]=0; xval[2]=0; for(i=1; i<3; i++) {switch(substr(nodes[i], 1, 1)) {case "b": xval[i]=1; break; case "g": xval[i]=2; break; case "s": xval[i]=3; break; case "x": xval[i]=4; break;}} if(xval[2]<xval[1]) {tmp=xval[1]; xval[1]=xval[2]; xval[2]=tmp; localip=1;} else {localip=2;} xval[1]--; xval[2]--; x=sprintf("%d", xval[1]*4+xval[2]); for(i=1; i<3; i++) {gsub("^bgp", "", nodes[i]); gsub("^gw", "", nodes[i]); gsub("^s", "", nodes[i]); gsub("^xx", "", nodes[i]);} if(xval[2]==xval[1]) {if(nodes[2]<nodes[1]) {tmp=nodes[1]; nodes[1]=nodes[2]; nodes[2]=tmp; localip=1;} else {localip=2;}} else if(localip==1) {tmp=nodes[1]; nodes[1]=nodes[2]; nodes[2]=tmp;} y=nodes[1]*16+nodes[2]; printf("IPv6: %s%1x%02x::%d/64\n", ipbase, x, y, localip);}'
