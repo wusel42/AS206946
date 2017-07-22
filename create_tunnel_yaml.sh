@@ -22,6 +22,7 @@ if [ $# -lt 1 -o $# -gt 3 ]; then
     exit 1
 fi
 
+ASN=$1
 legacy=0
 uname="`uname -n`"
 if [ $# -eq 2 ]; then
@@ -42,7 +43,7 @@ if [ $# -eq 3 ]; then
   fi
 fi
 
-if [ ! -e as${ASN}-tunnel.txt -o ! -e as${ASN}-tunnel-mapping.sed ]; then
+if [ ! -e "as${ASN}-tunnel.txt" -o ! -e "as${ASN}-tunnel-mapping.sed" ]; then
   echo "$0: Error, missing control files (as${ASN}-tunnel.txt and/or as${ASN}-tunnel-mapping.sed)."
   exit 1
 fi
