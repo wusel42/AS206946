@@ -83,10 +83,14 @@ do
   TYPE="`echo $i | cut -d ";" -f 2`"
   LHS="`echo ${linkspec} | awk '{split($1, lp, ":"); print lp[1];}'`"
   RHS="`echo ${linkspec} | awk '{split($1, lp, ":"); print lp[2];}'`"
+  LHSshort="`echo ${linkspec} | awk '{gsub("-", "", $1); split($1, lp, ":"); print lp[1];}'`"
+  RHSshort="`echo ${linkspec} | awk '{gsub("-", "", $1); split($1, lp, ":"); print lp[2];}'`"
   LHTMPNAME="`echo ${linkspec} | cut -d " " -f 1 | sed -f ./as${ASN}-tunnel-mapping.sed | awk '{split($1, lp, ":"); print lp[1];}'`"
   RHTMPNAME="`echo ${linkspec} | cut -d " " -f 1 | sed -f ./as${ASN}-tunnel-mapping.sed | awk '{split($1, lp, ":"); print lp[2];}'`"
-  domain="${dnssuffix}"
   tunprefix="${tunprefix}-"
+
+  domain="${dnssuffix}"
+  LHSTUNNAME="$LHS"
   echo "$LHS" | grep bgp 2>&1 >/dev/null && domain="4830.org"
   if [ "$domain" == "4830.org" ]; then tunprefix="ffgt"; fi
   if [ $legacy -eq 0 ]; then
@@ -94,10 +98,13 @@ do
     if [ "${TYPE}" = "l2tp-eth" ]; then
       tunprefix="E"
     fi
+    LHSTUNNAME="$LHSshort"
   fi
   LHSIP="`host ${LHS}.${domain} | awk '/has address/ {print $NF;}'`"
   LHS6IP="`host ${LHS}.${domain} | awk '/has IPv6 address/ {print $NF;}'`"
+
   domain="${dnssuffix}"
+  RHSTUNNAME="$RHS"
   echo "$RHS" | grep bgp 2>&1 >/dev/null && domain="4830.org"
   if [ "$domain" == "4830.org" ]; then tunprefix="ffgt"; fi
   if [ $legacy -eq 0 ]; then
@@ -105,11 +112,13 @@ do
     if [ "${TYPE}" = "l2tp-eth" ]; then
       tunprefix="E"
     fi
+  RHSTUNNAME="$RHSshort"
   fi
   RHSIP="`host ${RHS}.${domain} | awk '/has address/ {print $NF;}'`"
   RHS6IP="`host ${RHS}.${domain} | awk '/has IPv6 address/ {print $NF;}'`"
+
   if [ "$LHS" = "$uname" ]; then
-    echo "${tunprefix}${RHS}:"
+    echo "${tunprefix}${RHSTUNNAME}:"
     echo "  pub4src: \"$LHSIP\""
     echo "  pub4dst: \"$RHSIP\""
     if [ "${TYPE}" = "lan" ]; then
@@ -126,7 +135,7 @@ do
     fi
     echo "  mode: \"${TYPE}\""
   else
-    echo "${tunprefix}${LHS}:"
+    echo "${tunprefix}${LHSTUNNAME}:"
     echo "  pub4src: \"$RHSIP\""
     echo "  pub4dst: \"$LHSIP\""
     if [ "${TYPE}" = "lan" ]; then
