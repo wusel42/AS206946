@@ -92,7 +92,7 @@ do
   domain="${dnssuffix}"
   LHSTUNNAME="$LHS"
   echo "$LHS" | grep bgp 2>&1 >/dev/null && domain="4830.org"
-  if [ "$domain" == "4830.org" ]; then tunprefix="ffgt"; fi
+  if [ "$domain" == "4830.org" ]; then tunprefix="ffgt-"; fi
   if [ $legacy -eq 0 ]; then
     tunprefix="T"
     if [ "${TYPE}" = "l2tp-eth" ]; then
@@ -106,7 +106,7 @@ do
   domain="${dnssuffix}"
   RHSTUNNAME="$RHS"
   echo "$RHS" | grep bgp 2>&1 >/dev/null && domain="4830.org"
-  if [ "$domain" == "4830.org" ]; then tunprefix="ffgt"; fi
+  if [ "$domain" == "4830.org" ]; then tunprefix="ffgt-"; fi
   if [ $legacy -eq 0 ]; then
     tunprefix="T"
     if [ "${TYPE}" = "l2tp-eth" ]; then
