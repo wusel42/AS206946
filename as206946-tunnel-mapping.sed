@@ -16,3 +16,4 @@ s/bgp-fks01/bgp03/g
 s/bgp-fks02/bgp04/g
 s/uk1/xx11/g
 s/nl3/xx12/g
+s/nl0/xx13/g
