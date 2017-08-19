@@ -81,6 +81,12 @@ for i in `sed -e 's/ /;/g' <as${ASN}-tunnel.txt | grep ${uname}`
 do
   linkspec="`echo $i | cut -d ";" -f 1`"
   TYPE="`echo $i | cut -d ";" -f 2`"
+  IPFAMILY="$(printf %.1s ${TYPE})"
+  if [ ${IPFAMILY} != "6" ]; then
+    IPFAMILY="4"
+  else
+    TYPE="$(echo ${TYPE} | awk '{print substr($1, 2);}')"
+  fi
   LHS="`echo ${linkspec} | awk '{split($1, lp, ":"); print lp[1];}'`"
   RHS="`echo ${linkspec} | awk '{split($1, lp, ":"); print lp[2];}'`"
   LHSshort="`echo ${linkspec} | awk '{gsub("-", "", $1); split($1, lp, ":"); print lp[1];}'`"
@@ -119,8 +125,13 @@ do
 
   if [ "$LHS" = "$uname" ]; then
     echo "${tunprefix}${RHSTUNNAME}:"
-    echo "  pub4src: \"$LHSIP\""
-    echo "  pub4dst: \"$RHSIP\""
+    if [ ${IPFAMILY} == "6" ]; then
+      echo "  pub6src: \"$LHS6IP\""
+      echo "  pub6dst: \"$RHS6IP\""
+    else
+      echo "  pub4src: \"$LHSIP\""
+      echo "  pub4dst: \"$RHSIP\""
+    fi
     if [ "${TYPE}" = "lan" ]; then
       echo "  ipv6src: \"${LHS6IP}\""
       echo "  ipv6dst: \"${RHS6IP}\""
@@ -136,8 +147,13 @@ do
     echo "  mode: \"${TYPE}\""
   else
     echo "${tunprefix}${LHSTUNNAME}:"
-    echo "  pub4src: \"$RHSIP\""
-    echo "  pub4dst: \"$LHSIP\""
+    if [ ${IPFAMILY} == "6" ]; then
+      echo "  pub6src: \"$RHS6IP\""
+      echo "  pub6dst: \"$LHS6IP\""
+    else
+      echo "  pub4src: \"$RHSIP\""
+      echo "  pub4dst: \"$LHSIP\""
+    fi
     if [ "${TYPE}" = "lan" ]; then
       echo "  ipv6src: \"${RHS6IP}\""
       echo "  ipv6dst: \"${LHS6IP}\""
