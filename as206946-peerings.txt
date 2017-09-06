@@ -10,3 +10,4 @@
 206946 9178 ANY AS-wusel nl3 upstream
 206946 206740 ANY AS-wusel de0,de3 downstream
 206946 13135 ANY AS-wusel moist upstream
+206946 49745 ANY AS-wusel moist peering
