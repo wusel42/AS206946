@@ -63,10 +63,10 @@ fi
 # de3:gut1 ovpn
 if [ ${ASN} -eq 206813 ]; then
   dnssuffix="4830.org"
-  tunprefix="ffgt"
+  ourprefix="ffgt"
 elif [ ${ASN} -eq 206946 ]; then
   dnssuffix="dn42.uu.org"
-  tunprefix="uu"
+  ourprefix="uu"
 else
   echo "$0: Error, ASN ${ASN} unknown, please fix the script!"
   exit 1
@@ -93,7 +93,7 @@ do
   RHSshort="`echo ${linkspec} | awk '{gsub("-", "", $1); split($1, lp, ":"); print lp[2];}'`"
   LHTMPNAME="`echo ${linkspec} | cut -d " " -f 1 | sed -f ./as${ASN}-tunnel-mapping.sed | awk '{split($1, lp, ":"); print lp[1];}'`"
   RHTMPNAME="`echo ${linkspec} | cut -d " " -f 1 | sed -f ./as${ASN}-tunnel-mapping.sed | awk '{split($1, lp, ":"); print lp[2];}'`"
-  tunprefix="${tunprefix}-"
+  tunprefix="${ourprefix}-"
 
   domain="${dnssuffix}"
   LHSTUNNAME="$LHS"
