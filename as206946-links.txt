@@ -5,4 +5,5 @@ de0:bgp-gut01 lan
 de0:bgp-gut02 lan
 de3:bgp-fks01 lan
 de2:bgp-ham01 lan
+de2:bgp-ber01 l2tp
 de0:gut1 l2tp
