@@ -1,9 +1,10 @@
-de3:gut1 l2tp
-de5:gut1 l2tp
-uk2:gut1 l2tp
+de3:gut1 l2tp-ll
+de5:gut1 l2tp-ll
+uk2:gut1 l2tp-ll
 de0:bgp-gut01 lan
 de0:bgp-gut02 lan
 de3:bgp-fks01 lan
 de2:bgp-ham01 lan
-de2:bgp-ber01 l2tp
-de0:gut1 l2tp
+de2:bgp-ber01 l2tp-ll
+de0:gut1 l2tp-ll
+de2:gut1 l2tp-ll
