@@ -8,3 +8,4 @@ de2:bgp-ham01 lan
 de2:bgp-ber01 l2tp-ll
 de0:gut1 l2tp-ll
 de2:gut1 l2tp-ll
+de5:bgp-fra01 lan
