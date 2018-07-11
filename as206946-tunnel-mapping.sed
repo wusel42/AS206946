@@ -1,10 +1,8 @@
 s/de3/xx00/g
 s/uk2/xx01/g
 s/us1/xx02/g
-s/nl2/xx03/g
 s/de4/xx05/g
 s/de5/xx04/g
-s/de6/xx06/g
 s/sg1/xx07/g
 s/gut1/gw00/g
 s/mob1/gw10/g
@@ -16,7 +14,9 @@ s/bgp-fks01/bgp03/g
 s/bgp-ham01/bgp04/g
 s/bgp-ber01/bgp05/g
 s/bgp-fra01/bgp06/g
+s/bgp-ham02/bgp07/g
 s/uk1/xx11/g
 s/nl3/xx12/g
 s/nl0/xx13/g
 s/de2/gw15/g
+s/de1/gw12/g

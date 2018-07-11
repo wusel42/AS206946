@@ -61,11 +61,27 @@ fi
 # de3:uk2 gre
 # de3:us1 l2tp
 # de3:gut1 ovpn
+#
+# 2018-07-10: New tunnel mode "l2tp-wg", L2TP over WireGuard, e. g.
+# de2:de0 l2tp-wg
+#
+# Since TCP over pure L2TP tunnels suffered odd performance hits on some
+# routes, we switch to run L2TP over WireGuard tunnels. L2TP can carry
+# raw IP traffic (L2), whereas WireGuard tunnels are L3 only. Furthermore,
+# L2TP can fragment (and optionally defragment) packets to mask the MTU
+# 1500 issue; WireGuard cannot.
+#
+# To facilitate automated file generation, we'll look up $host.wg.$basedomain
+# for hosts in l2tp-wg tunnels, instead of $host.$domain. Ensure your DNS
+# has been setup properly!
+
 if [ ${ASN} -eq 206813 ]; then
   dnssuffix="4830.org"
+  dnsbase="4830.org"
   ourprefix="ffgt"
 elif [ ${ASN} -eq 206946 ]; then
   dnssuffix="dn42.uu.org"
+  dnsbase="uu.org"
   ourprefix="uu"
 else
   echo "$0: Error, ASN ${ASN} unknown, please fix the script!"
@@ -104,8 +120,20 @@ do
     if [ "${TYPE}" = "l2tp-eth" ]; then
       tunprefix="E"
     fi
+    if [ "${TYPE}" = "l2tp-wg" ]; then
+      tunprefix="W"
+    fi
     LHSTUNNAME="$LHSshort"
   fi
+
+  if [ "${TYPE}" = "l2tp-wg" ]; then
+    if [ "${domain}" == "4830.org" ]; then
+      domain="wg.${domain}"
+    else
+      domain="wg.${dnsbase}"
+    fi
+  fi
+
   LHSIP="`host ${LHS}.${domain} | awk '/has address/ {print $NF;}'`"
   LHS6IP="`host ${LHS}.${domain} | awk '/has IPv6 address/ {print $NF;}'`"
 
@@ -118,8 +146,20 @@ do
     if [ "${TYPE}" = "l2tp-eth" ]; then
       tunprefix="E"
     fi
-  RHSTUNNAME="$RHSshort"
+    if [ "${TYPE}" = "l2tp-wg" ]; then
+      tunprefix="W"
+    fi
+    RHSTUNNAME="$RHSshort"
   fi
+
+  if [ "${TYPE}" = "l2tp-wg" ]; then
+    if [ "${domain}" == "4830.org" ]; then
+      domain="wg.${domain}"
+    else
+      domain="wg.${dnsbase}"
+    fi
+  fi
+
   RHSIP="`host ${RHS}.${domain} | awk '/has address/ {print $NF;}'`"
   RHS6IP="`host ${RHS}.${domain} | awk '/has IPv6 address/ {print $NF;}'`"
 
@@ -137,7 +177,7 @@ do
       echo "  ipv6dst: \"${RHS6IP}\""
       echo "  ipv4src: \"${LHSIP}\""
       echo "  ipv4dst: \"${RHSIP}\""
-    elif [ "${TYPE}" = "l2tp-ll" ]; then
+    elif [ "${TYPE}" = "l2tp-ll" -o "${TYPE}" = "l2tp-wg" ]; then
       ./tun-ip.sh $LHTMPNAME:$RHTMPNAME linklocal | awk '{gsub("IP", "ip", $1); gsub(":", "src:", $1); printf("  %s \"%s\"\n", $1, $2);}'
       ./tun-ip.sh $RHTMPNAME:$LHTMPNAME linklocal | awk '{gsub("IP", "ip", $1); gsub(":", "dst:", $1); printf("  %s \"%s\"\n", $1, $2);}'
     else
@@ -159,7 +199,7 @@ do
       echo "  ipv6dst: \"${LHS6IP}\""
       echo "  ipv4src: \"${RHSIP}\""
       echo "  ipv4dst: \"${LHSIP}\""
-    elif [ "${TYPE}" = "l2tp-ll" ]; then
+    elif [ "${TYPE}" = "l2tp-ll" -o "${TYPE}" = "l2tp-wg" ]; then
       ./tun-ip.sh $LHTMPNAME:$RHTMPNAME linklocal | awk '{gsub("IP", "ip", $1); gsub(":", "dst:", $1); printf("  %s \"%s\"\n", $1, $2);}'
       ./tun-ip.sh $RHTMPNAME:$LHTMPNAME linklocal | awk '{gsub("IP", "ip", $1); gsub(":", "src:", $1); printf("  %s \"%s\"\n", $1, $2);}'
     else
